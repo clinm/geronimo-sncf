@@ -1,4 +1,4 @@
-module.exports = function(server) {
+module.exports = function() {
     var message = "Executing in ";
     if (process.env.NODE_ENV) {
         message += process.env.NODE_ENV;
@@ -6,10 +6,4 @@ module.exports = function(server) {
         message += "production";
     }
     console.log(message);
-
-    // Install a `/` route that returns server status
-    var router = server.loopback.Router();
-    router.get('/', server.loopback.status());
-    server.use(router);
-
 };
