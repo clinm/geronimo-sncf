@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content" ng-app="app">
     <div class="row">
         <div class="medium-3 columns">
             <div class="tile">
@@ -39,6 +39,17 @@
                     </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-controller="LineCtrl">
+        <div class="medium-9 columns medium-offset-3">
+            <div class="tile">
+                <h3>Example de graphique</h3>
+                <canvas id="line" class="chart chart-line" chart-data="data"
+                        chart-labels="labels" chart-series="series" chart-options="options"
+                        chart-dataset-override="datasetOverride" chart-click="onClick"
+                </canvas>
             </div>
         </div>
     </div>
