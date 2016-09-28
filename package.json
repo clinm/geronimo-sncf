@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server/server.js",
   "scripts": {
-    "prestart": "mkdir -p ./client/css; ./node_modules/clean-css/bin/cleancss websrc/main.css -o ./client/css/main-min.css",
+    "prestart": "./script/prestart.sh",
     "start": "node .",
     "pretest": "eslint .",
     "posttest": "nsp check"
@@ -31,5 +31,5 @@
   },
   "license": "UNLICENSED",
   "description": "geronimo-sncf",
-  "browserify-css": "./config/browserify-css.js"
+  "browserify-css": "./script/browserify-css.js"
 }
