@@ -1,4 +1,4 @@
-angular.module("app", ["chart.js"]).controller("LineCtrl", function ($scope) {
+angular.module("app", ["chart.js", "angular-table"]).controller("LineCtrl", function ($scope) {
 
     $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
     $scope.series = ['Series A', 'Series B'];
