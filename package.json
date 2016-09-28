@@ -9,6 +9,9 @@
     "posttest": "nsp check"
   },
   "dependencies": {
+    "angular": "^1.5.8",
+    "angular-chart.js": "^1.0.3",
+    "chart.js": "^2.3.0",
     "clean-css": "^3.4.20",
     "compression": "^1.0.3",
     "cors": "^2.5.2",

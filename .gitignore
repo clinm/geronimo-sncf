@@ -19,3 +19,5 @@ node_modules
 npm-debug.log
 client/css/
 client/js/
+client/vendor/*.js
+client/vendor/*.js.map
