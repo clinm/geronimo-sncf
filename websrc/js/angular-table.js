@@ -84,7 +84,15 @@ angular.module("app").controller("basicExampleCtrl", function($scope) {
 
     $scope.config = {
         itemsPerPage: 5,
-        fillLastPage: true
+        fillLastPage: true,
+        // removing first and last item to
+        // gain space
+        paginatorLabels: {
+            stepBack: '‹',
+            stepAhead: '›',
+            first: "",
+            last: ""
+        }
     };
 
     $scope.test = "toto";

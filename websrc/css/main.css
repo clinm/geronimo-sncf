@@ -61,3 +61,14 @@ a:hover{
 #top-bar .top-bar ul{
     background-color: #FFFFFF;
 }
+
+.pagination li {
+    display: inline-block;
+}
+    .pagination .disabled{
+        padding: 0;
+    }
+
+.pagination li.active a{
+    color: #d2b75e;
+}
