@@ -3,6 +3,22 @@ body{
     color: #7D8488;
 }
 
+
+@media only screen and (max-width: 40.063em) {
+    #site-icon img{
+        width: 60px;
+    }
+}
+
+
+@media only screen and (max-width: 20.063em) {
+    #site-icon{
+        display: none;
+    }
+}
+
+
+
 .tile{
     background-color: #FFFFFF;
     padding: 15px;
