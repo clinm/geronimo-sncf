@@ -1,4 +1,11 @@
-angular.module("app", ["chart.js", "angular-table"]).controller("LineCtrl", function ($scope) {
+var app = angular.module("app", ["chart.js", "angular-table"]);
+
+app.config(function($interpolateProvider) {
+    $interpolateProvider.startSymbol('[[[');
+    $interpolateProvider.endSymbol(']]]');
+});
+
+app.controller("LineCtrl", function ($scope) {
 
     $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
     $scope.series = ['Series A', 'Series B'];
