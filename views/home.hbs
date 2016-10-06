@@ -1,26 +1,17 @@
 <div class="content" ng-app="app">
-    <div class="row">
+    <div class="row"ng-controller="basicExampleCtrl">
         <div class="medium-3 columns">
-            <div class="tile">
-                <h3>Options</h3>
-                <ul class="menu vertical">
-                    <li><a href="#">Option 1</a></li>
-                    <li><a href="#">Option 2</a></li>
-                    <li><a href="#">Option 3</a></li>
-                    <li><a href="#">Option 4</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="medium-9 columns"  ng-controller="basicExampleCtrl">
             <div class="tile">
                 <h3>Filtres : </h3>
                 <div class="row">
-                    <div class="columns medium-3 small-6" ng-repeat="(id, s) in status">
+                    <div class="columns medium-6 small-6" ng-repeat="(id, s) in status">
                         <input id="status[[[id]]]" type="radio" ng-model="query.status" ng-value="s.value" ng-change="updateList()">
                         <label for="status[[[id]]]">[[[s.name]]]</label>
                     </div>
                 </div>
             </div>
+            </div>
+            <div class="medium-9 columns">
             <div class="tile">
                 <table class="table table-striped" at-table  at-paginated at-list="disruptions" at-config="config">
                     <thead></thead>
@@ -35,17 +26,6 @@
                 <div class="text-center">
                     <at-pagination at-list="disruptions" at-config="config"></at-pagination>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="row" ng-controller="LineCtrl">
-        <div class="medium-9 columns medium-offset-3">
-            <div class="tile">
-                <h3>Example de graphique</h3>
-                <canvas id="line" class="chart chart-line" chart-data="data"
-                        chart-labels="labels" chart-series="series" chart-options="options"
-                        chart-dataset-override="datasetOverride" chart-click="onClick"
-                </canvas>
             </div>
         </div>
     </div>
