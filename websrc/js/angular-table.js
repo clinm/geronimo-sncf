@@ -1,9 +1,9 @@
 angular.module("app").controller("basicExampleCtrl", function($scope, $filter, $http) {
 
-    $scope.list = [];
+    $scope.data = {disruptions: []};
 
     $http.get("/api").then(function(response) {
-        $scope.list = response.data;
+        $scope.data = response.data;
         $scope.updateList();
     });
 
@@ -27,7 +27,7 @@ angular.module("app").controller("basicExampleCtrl", function($scope, $filter, $
 
 
     $scope.updateList = function(){
-        $scope.disruptions = $filter("filter")($scope.list, {status: $scope.query.status});
+        $scope.disruptions = $filter("filter")($scope.data.disruptions, {status: $scope.query.status});
     };
 
     $scope.updateList();
@@ -43,6 +43,14 @@ angular.module("app").controller("basicExampleCtrl", function($scope, $filter, $
             first: "",
             last: ""
         }
+    };
+
+    $scope.displayAsDate = function(timestamp) {
+        var date = "Inconnue";
+        if (timestamp) {
+            date  = new Date(timestamp);
+        }
+        return date;
     };
 
 });
