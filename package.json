@@ -5,7 +5,7 @@
   "scripts": {
     "prestart": "./script/prestart.sh",
     "start": "node .",
-    "pretest": "eslint .",
+    "test": "./node_modules/.bin/mocha ./test --recursive --reporter spec",
     "posttest": "nsp check"
   },
   "dependencies": {
@@ -23,11 +23,14 @@
     "loopback-datasource-juggler": "^2.39.0",
     "serve-favicon": "^2.0.1",
     "strong-error-handler": "^1.0.1",
-    "uglify-js": "^2.7.3"
+    "uglify-js": "^2.7.3",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
-    "eslint": "^2.5.3",
-    "nsp": "^2.1.0"
+    "chai": "^3.5.0",
+    "mocha": "^3.1.0",
+    "nsp": "^2.1.0",
+    "sinon": "^1.17.6"
   },
   "repository": {
     "type": "",
