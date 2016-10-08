@@ -1,4 +1,11 @@
-angular.module("app").controller("basicExampleCtrl", function($scope, $filter, $http) {
+var app = angular.module("app", ["angular-table"]);
+
+app.config(function($interpolateProvider) {
+    $interpolateProvider.startSymbol('[[[');
+    $interpolateProvider.endSymbol(']]]');
+});
+
+app.controller("basicExampleCtrl", function($scope, $filter, $http) {
 
     $scope.data = {disruptions: []};
 
