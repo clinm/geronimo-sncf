@@ -37,6 +37,7 @@ module.exports = function(app) {
 
     router.get('/api', function(req, res) {
         var data = sjob.getValue(job_conf.id) || data;
+        res.set("maxage", 86400000);
         res.send(data);
     });
     app.use(router);

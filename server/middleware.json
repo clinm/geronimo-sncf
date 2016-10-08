@@ -45,7 +45,9 @@
   },
   "files": {
     "loopback#static": {
-      "params": "$!../client"
+      "params": ["$!../client", {
+        "maxAge": 86400000
+      }]
     }
   },
   "final": {
