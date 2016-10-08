@@ -135,7 +135,14 @@ describe("Parsing", function() {
                             "name": "OCE:SN017647F01002"
                         }
                     }
-                ]
+                ],
+                "application_periods": [
+                    {
+                        "begin": "20161004T055400",
+                        "end": "20161004T062359"
+                    }
+                ],
+                "updated_at": "20161008T050618"
             };
 
         it("should give an empty array as default 1", function() {
@@ -150,8 +157,76 @@ describe("Parsing", function() {
 
         it("should return one entry", function() {
             var dis = parsing.translateDisruption([realMessage1]);
-            var expected = {status: "Passé", object_name: "17647", text: "Incident affectant la voie"};
+            var expected = {
+                status: "Passé",
+                object_name: "17647",
+                text: "Incident affectant la voie",
+                application_period: {
+                    begin: parsing.toTimeStamp("20161004T055400"),
+                    end: parsing.toTimeStamp("20161004T062359"),
+                    updated_at: parsing.toTimeStamp("20161008T050618")
+                }
+            };
             expect(dis).to.be.deep.equal([expected]);
         });
     });
+
+    describe("Translate dates to timestamp", function() {
+        it("should return empty value", function() {
+            var time = parsing.toTimeStamp();
+            expect(time).to.be.undefined;
+        });
+
+        it("should handle empty string", function() {
+            var time = parsing.toTimeStamp("");
+            expect(time).to.be.undefined;
+        });
+
+        var incorrectTime = ["fake", "2016", "201610", "20161010", "20161025T",
+                             "20161025T10", "20161025T1030"];
+        it("should translate only dates", function() {
+
+            incorrectTime.forEach(function(t) {
+                var time = parsing.toTimeStamp(t);
+                expect(time).to.be.undefined;
+            });
+        });
+
+        it("should translate correct dates", function() {
+            var time = parsing.toTimeStamp("20161008T181602");
+            expect(time).to.be.equal(1475943362000);
+        });
+
+    });
+
+    describe("Retrieve dates", function() {
+        var messageWithDates = {
+            "application_periods": [
+                {
+                    "begin": "20161004T055400",
+                    "end": "20161004T062359"
+                }
+            ],
+            "updated_at": "20161008T050618"
+        };
+
+        it("should look for application_periods entry", function() {
+            var period = parsing.getApplicationPeriod({});
+            expect(period).to.be.deep.equal({updated_at: undefined});
+        });
+
+        it("should retrieve application_periods", function() {
+            var period = parsing.getApplicationPeriod(messageWithDates);
+
+            var ap = messageWithDates.application_periods[0];
+            var expected = {
+                begin: parsing.toTimeStamp(ap.begin),
+                end: parsing.toTimeStamp(ap.end),
+                updated_at: parsing.toTimeStamp(messageWithDates.updated_at)
+            };
+            expect(period).to.exist;
+            expect(period).to.be.deep.equal(expected);
+        });
+    });
+
 });
