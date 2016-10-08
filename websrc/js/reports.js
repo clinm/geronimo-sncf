@@ -52,10 +52,20 @@ app.controller("basicExampleCtrl", function($scope, $filter, $http) {
         }
     };
 
+    var getAssociatedDay = function(day) {
+        var dayNames = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+        return dayNames[day%7];
+    };
+
+    var padding = function(value) {
+        return String("00" + value).slice(-2);
+    };
+
     $scope.displayAsDate = function(timestamp) {
         var date = "Inconnue";
         if (timestamp) {
-            date  = new Date(timestamp);
+            var d = new Date(timestamp);
+            date = getAssociatedDay(d.getDay()) + " " + padding(d.getHours()) + ":" + padding(d.getMinutes());
         }
         return date;
     };

@@ -20,7 +20,10 @@
                     <tr>
                         <td at-implicit at-sortable at-title="Etat" at-attribute="status" at-initial-sorting="asc"></td>
                         <td at-implicit at-sortable at-title="N° train" at-attribute="object_name"></td>
-                        <td at-implicit at-sortable at-title="Raison" at-attribute="text"></td>
+                        <td at-implicit at-sortable at-title="Raison" at-attribute="text" width="250px"></td>
+                        <td at-implicit at-sortable at-title="Début">[[[displayAsDate(item.application_period.begin)]]]</td>
+                        <td at-implicit at-sortable at-title="Fin">[[[displayAsDate(item.application_period.end)]]]</td>
+                        <td at-implicit at-sortable at-title="Mise à jour">[[[displayAsDate(item.application_period.updated_at)]]]</td>
                     </tr>
                     </tbody>
                 </table>
