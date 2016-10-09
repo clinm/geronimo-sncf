@@ -12,7 +12,7 @@ mkdir -p ./client/css;
 mkdir -p ./client/js;
 
 # minifying resources
-$exec_cleancss websrc/css/main.css -o ./client/css/main-min.css
+$exec_cleancss websrc/css/main.css websrc/css/list-item.css -o ./client/css/main-min.css
 
 
 $exec_uglifyjs ./websrc/js/reports.js  -o ./client/js/bundle.js
