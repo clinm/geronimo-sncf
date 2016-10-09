@@ -14,9 +14,10 @@
         <div class="medium-9 columns hide-for-small-only">
             <div class="tile">
                 <p> Mise à jour à [[[displayAsDate(data.info.updated)]]]</p>
-                <table class="table table-striped" at-table  at-paginated at-list="disruptions" at-config="config">
-                    <thead></thead>
-                    <tbody>
+                <div ng-if="disruptions.length > 0">
+                    <table class="table table-striped" at-table  at-paginated at-list="disruptions" at-config="config">
+                        <thead></thead>
+                        <tbody>
                         <tr>
                             <td at-implicit at-sortable at-title="Etat" at-attribute="status" at-initial-sorting="asc"></td>
                             <td at-implicit at-sortable at-title="N° train" at-attribute="object_name"></td>
@@ -25,17 +26,21 @@
                             <td at-implicit at-sortable at-title="Fin">[[[displayAsDate(item.application_period.end)]]]</td>
                             <td at-implicit at-sortable at-title="Mise à jour">[[[displayAsDate(item.application_period.updated_at)]]]</td>
                         </tr>
-                    </tbody>
-                </table>
-                <div class="text-center">
-                    <at-pagination at-list="disruptions" at-config="config"></at-pagination>
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <at-pagination at-list="disruptions" at-config="config"></at-pagination>
+                    </div>
+                </div>
+                <div ng-if="disruptions.length === 0">
+                    <p class="text-center">Aucune anomalie</p>
                 </div>
             </div>
         </div>
         <div class="medium-9 columns show-for-small-only">
             <div class="tile">
                 <p class="text-center"> Mise à jour à [[[displayAsDate(data.info.updated)]]]</p>
-                <div>
+                <div ng-if="disruptions.length > 0">
                     <div class="item row align-middle" ng-repeat="item in disruptions">
                         <div class="left-part columns small-3">
                                 <p class="train-number text-center">
@@ -58,7 +63,9 @@
                         </div>
                     </div>
                 </div>
-
+                <div ng-if="disruptions.length === 0">
+                    <p class="text-center">Aucune anomalie</p>
+                </div>
             </div>
         </div>
     </div>

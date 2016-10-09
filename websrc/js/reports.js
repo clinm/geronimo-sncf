@@ -30,7 +30,7 @@ app.controller("basicExampleCtrl", function($scope, $filter, $http) {
                 }
             ];
 
-    $scope.query = {status: "Futur"};
+    $scope.query = {status: ""};
 
 
     $scope.updateList = function(){

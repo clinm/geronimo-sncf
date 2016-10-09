@@ -1,5 +1,6 @@
 var fetch = require('node-fetch');
 var parsing = require('../../modules/scnf/parsing');
+var filtering = require('../../modules/scnf/filtering');
 var sjob = require('../../modules/jobs/scheduled_jobs');
 
 var job_conf = {
@@ -10,7 +11,7 @@ var job_conf = {
     }
 };
 
-var async_task = function(fulfill, reject) {
+var async_task = function(fulfill) {
     fetch('https://a9855a18-1753-4acb-a28a-84ef88a85162@api.sncf.com/v1/coverage/sncf/traffic_reports/')
     .then(function(res) {
         return res.json();
@@ -30,15 +31,20 @@ var async_task = function(fulfill, reject) {
 
 module.exports = function(app) {
     var router = app.loopback.Router();
-    var data = {disruptions: [], info: {updated: new Date().getTime()}};
+    var sendData = {disruptions: [], info: {updated: new Date().getTime()}};
 
     sjob.add(job_conf.id, job_conf.job, job_conf.interval);
     sjob.start(job_conf.id);
 
     router.get('/api', function(req, res) {
-        var data = sjob.getValue(job_conf.id) || data;
-        res.set("maxage", 86400000);
-        res.send(data);
+        var newData = sjob.getValue(job_conf.id);
+
+        if (newData && newData.info.updated > sendData.info.updated) {
+            sendData = newData;
+            newData.disruptions = filtering.filterAfterDay(newData.disruptions, filtering.getBeginningOfDay().getTime());
+        }
+        res.setHeader('Cache-Control', 'public, max-age=60');
+        res.send(sendData);
     });
     app.use(router);
 };
