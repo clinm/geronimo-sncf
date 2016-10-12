@@ -15,7 +15,7 @@ mkdir -p ./client/js;
 $exec_cleancss websrc/css/main.css websrc/css/list-item.css -o ./client/css/main-min.css
 
 
-$exec_uglifyjs ./websrc/js/reports.js  -o ./client/js/bundle.js
+$exec_uglifyjs ./node_modules/angular-mm-foundation/src/pagination/pagination.js ./websrc/js/reports.js  -o ./client/js/bundle.js
 
 # moving node_modules resources to vendor
 vendor_dir="client/vendor/"

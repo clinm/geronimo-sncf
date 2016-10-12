@@ -8,6 +8,10 @@ body{
     #site-icon img{
         width: 60px;
     }
+
+    .callout p {
+        font-size: 12px;
+    }
 }
 
 
@@ -73,6 +77,23 @@ a:hover{
         padding: 0;
     }
 
-.pagination li.active a{
-    color: #d2b75e;
+    .pagination li.active a,
+    .pagination li.current a{
+        color: #fff;
+    }
+
+    .pagination li.current,
+    .pagination li.active{
+        padding: inherit;
+        background-color: #9DA4A8;
+        color: #fff;
+    }
+
+    .pagination li a {
+        color: #9DA4A8;
+    }
+
+div.center{
+    display: table;
+    margin: 0 auto;
 }

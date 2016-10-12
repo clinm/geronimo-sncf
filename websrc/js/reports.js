@@ -1,4 +1,4 @@
-var app = angular.module("app", ["angular-table"]);
+var app = angular.module("app", ["angular-table", "mm.foundation.pagination"]);
 
 app.config(function($interpolateProvider) {
     $interpolateProvider.startSymbol('[[[');
@@ -50,6 +50,11 @@ app.controller("basicExampleCtrl", function($scope, $filter, $http) {
             first: "",
             last: ""
         }
+    };
+
+    $scope.pagin = {
+        itemsPerPage: 5,
+        cPage: 1
     };
 
     var getAssociatedDay = function(day) {
