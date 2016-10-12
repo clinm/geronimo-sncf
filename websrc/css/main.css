@@ -35,6 +35,10 @@ a:hover{
     color: #d2b75e;
 }
 
+.callout.secondary a {
+    text-decoration: underline;
+}
+
 #page-title{
     text-transform: uppercase;
     text-align: center;

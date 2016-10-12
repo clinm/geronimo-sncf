@@ -1,4 +1,14 @@
 <div class="content" ng-app="app">
+    <div class="row">
+        <div class="medium-12 columns">
+            <div class="callout secondary">
+                <h5>Information</h5>
+                <p>Cette page ainsi que la majorité du site utilise les données disponibles gratuitement <a target="_blank" href="https://data.sncf.com/">à cette page.</a><br>
+                Concernant les informations sur les trains annulés, veuillez vous référer <a target="_blank" href="http://www.sncf.com/fr/horaires-info-trafic"> aux horaires info trafic en temps réel fournis par la SNCF.</a>
+                pour plus d'information</p>
+            </div>
+        </div>
+    </div>
     <div class="row"ng-controller="basicExampleCtrl">
         <div class="medium-3 columns">
             <div class="tile">
@@ -37,7 +47,7 @@
                 </div>
             </div>
         </div>
-        <div class="medium-9 columns show-for-small-only">
+        <div class="medium-9 columns medium-offset-3 show-for-small-only">
             <div class="tile">
                 <p class="text-center"> Mise à jour à [[[displayAsDate(data.info.updated)]]]</p>
                 <div ng-if="disruptions.length > 0">
