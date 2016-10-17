@@ -19,6 +19,14 @@
                         <label for="status[[[id]]]">[[[s.name]]]</label>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="small-3 medium-4 columns">
+                        <label for="middle-label" class="text-right middle">N° train</label>
+                    </div>
+                    <div class="small-9 medium-8 columns">
+                        <input type="text" placeholder="Ex: 837593" ng-model="query.object_name" ng-change="updateList()">
+                    </div>
+                </div>
             </div>
         </div>
         <script id="template/pagination/pagination.html" type="text/ng-template">
