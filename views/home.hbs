@@ -58,7 +58,7 @@
                 <div ng-if="disruptions.length > 0">
                     <div class="center">
                         <div class="center">
-                            <pagination previous-text="<" next-text=">" total-items="disruptions.length" max-size="4" rotate="false" items-per-page="pagin.itemsPerPage" page="pagin.cPage"></pagination>
+                            <pagination previous-text="<" next-text=">" total-items="disruptions.length" max-size="3" rotate="false" items-per-page="pagin.itemsPerPage" page="pagin.cPage"></pagination>
                         </div>
                         <div class="item row align-middle" ng-repeat="item in disruptions.slice((pagin.cPage-1) * pagin.itemsPerPage) | limitTo:pagin.itemsPerPage">
                         <div class="left-part columns small-4">

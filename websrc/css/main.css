@@ -91,6 +91,7 @@ a:hover{
 
     .pagination li a {
         color: #9DA4A8;
+        padding: .2875rem .725rem;
     }
 
 div.center{
