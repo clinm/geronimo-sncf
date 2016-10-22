@@ -7,10 +7,11 @@ app.config(function($interpolateProvider) {
 
 app.controller("basicExampleCtrl", function($scope, $filter, $http) {
 
-    $scope.data = {disruptions: []};
+    $scope.data = {disruptions: [], grouped_by_text: []};
 
     $http.get("/api").then(function(response) {
         $scope.data = response.data;
+        $scope.data.grouped_by_text = grouping.groupByTextToArray($scope.data.disruptions);
         $scope.updateList();
     });
 
