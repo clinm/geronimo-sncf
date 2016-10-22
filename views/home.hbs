@@ -14,9 +14,12 @@
             <div class="tile">
                 <h3>Filtres : </h3>
                 <div class="row">
-                    <div class="columns medium-6 small-6" ng-repeat="(id, s) in status">
-                        <input id="status[[[id]]]" type="radio" ng-model="query.status" ng-value="s.value" ng-change="updateList()">
-                        <label for="status[[[id]]]">[[[s.name]]]</label>
+                    <div class="medium-12 columns">
+                        <label>Etat</label>
+                        <div class="columns medium-6 small-6" ng-repeat="(id, s) in status">
+                            <input id="status[[[id]]]" type="radio" ng-model="query.status" ng-value="s.value" ng-change="updateList()">
+                            <label for="status[[[id]]]">[[[s.name]]]</label>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -43,8 +46,9 @@
                 <li ng-repeat="page in pages" ng-class="{arrow: $first || $last, current: page.active, unavailable: page.disabled}"><a ng-click="selectPage(page.number)">[[[page.text]]]</a></li>
             </ul>
         </script>
-        <div class="medium-9 columns hide-for-small-only">
-            <div class="tile">
+        <div class="medium-9 columns">
+            <div class="tile hide-for-small-only">
+                <h3>Anomalies : </h3>
                 <p class="text-center"> Mise à jour [[[displayAsDate(data.info.updated)]]]</p>
                 <div ng-if="disruptions.length > 0">
                     <table class="table table-striped" at-table  at-paginated at-list="disruptions" at-config="config">
@@ -68,9 +72,8 @@
                     <p class="text-center">Aucune anomalie</p>
                 </div>
             </div>
-        </div>
-        <div class="medium-9 columns medium-offset-3 show-for-small-only">
-            <div class="tile">
+            <div class="tile show-for-small-only">
+                <h3>Anomalies : </h3>
                 <p class="text-center"> Mise à jour [[[displayAsDate(data.info.updated)]]]</p>
                 <div ng-if="disruptions.length > 0">
                     <div class="center">
@@ -78,34 +81,32 @@
                             <pagination previous-text="<" next-text=">" total-items="disruptions.length" max-size="3" rotate="false" items-per-page="pagin.itemsPerPage" page="pagin.cPage"></pagination>
                         </div>
                         <div class="item row align-middle" ng-repeat="item in disruptions.slice((pagin.cPage-1) * pagin.itemsPerPage) | limitTo:pagin.itemsPerPage">
-                        <div class="left-part columns small-4">
+                            <div class="left-part columns small-4">
                                 <p class="train-number text-center">
                                     <strong>[[[item.object_name]]]</strong>
                                 </p>
                                 <p class="train-status text-center">
                                     [[[item.status]]]
                                 </p>
+                            </div>
+                            <div class="right-part columns small-8">
+                                <p class="train-hours train-hours-begin">
+                                    <span class="hours-title">Départ : </span>[[[displayAsDate(item.application_period.begin)]]]
+                                </p>
+                                <p class="train-hours train-hours-end">
+                                    <span class="hours-title">Arrivé  : </span>[[[displayAsDate(item.application_period.end)]]]
+                                </p>
+                                <p class="train-reason">
+                                    [[[item.text]]]
+                                </p>
+                            </div>
                         </div>
-                        <div class="right-part columns small-8">
-                            <p class="train-hours train-hours-begin">
-                                <span class="hours-title">Départ : </span>[[[displayAsDate(item.application_period.begin)]]]
-                            </p>
-                            <p class="train-hours train-hours-end">
-                                <span class="hours-title">Arrivé  : </span>[[[displayAsDate(item.application_period.end)]]]
-                            </p>
-                            <p class="train-reason">
-                                [[[item.text]]]
-                            </p>
-                        </div>
-                    </div>
                     </div>
                 </div>
                 <div ng-if="disruptions.length === 0">
                     <p class="text-center">Aucune anomalie</p>
                 </div>
             </div>
-        </div>
-        <div class="medium-9 columns medium-offset-3">
             <div class="tile">
                 <h3>Résumé de la journée : </h3>
                 <table class="table table-striped" at-table at-list="data.grouped_by_text">
