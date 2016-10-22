@@ -35,7 +35,22 @@ app.controller("basicExampleCtrl", function($scope, $filter, $http) {
 
 
     $scope.updateList = function(){
-        $scope.disruptions = $filter("filter")($scope.data.disruptions, $scope.query);
+        $scope.filtered = {};
+        $scope.filtered.disruptions = $filter("filter")($scope.data.disruptions, $scope.query);
+
+        // reproducing filtering without 'text' attribut in order to update select element
+        var query = angular.copy($scope.query);
+        delete query.text;
+
+        var disruptions = $filter("filter")($scope.data.disruptions, query);
+        $scope.filtered.count = disruptions.length;
+        var groupedByText = grouping.groupByText(disruptions);
+
+        if ($scope.query.text && typeof groupedByText[$scope.query.text] === 'undefined') {
+            groupedByText[$scope.query.text] = 0;
+        }
+
+        $scope.filtered.grouped_by_text = grouping.toArray(groupedByText);
     };
 
     $scope.updateList();

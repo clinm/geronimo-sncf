@@ -33,8 +33,8 @@
                     <div class="medium-12 columns">
                         <label for="query_text">Raison
                             <select name="text" id="query_text" ng-model="query.text" ng-change="updateList()">
-                                <option selected value="">Tous ([[[data.disruptions.length]]])</option>
-                                <option ng-repeat="reason in data.grouped_by_text" value="[[[reason.value]]]" ng-value="reason.value">[[[reason.value]]] ([[[reason.count]]])</option>
+                                <option selected value="">Tous ([[[filtered.count]]])</option>
+                                <option ng-repeat="reason in filtered.grouped_by_text" value="[[[reason.value]]]" ng-value="reason.value">[[[reason.value]]] ([[[reason.count]]])</option>
                             </select>
                         </label>
                     </div>
@@ -50,8 +50,8 @@
             <div class="tile hide-for-small-only">
                 <h3>Anomalies : </h3>
                 <p class="text-center"> Mise à jour [[[displayAsDate(data.info.updated)]]]</p>
-                <div ng-if="disruptions.length > 0">
-                    <table class="table table-striped" at-table  at-paginated at-list="disruptions" at-config="config">
+                <div ng-if="filtered.disruptions.length > 0">
+                    <table class="table table-striped" at-table  at-paginated at-list="filtered.disruptions" at-config="config">
                         <thead></thead>
                         <tbody>
                         <tr>
@@ -65,22 +65,22 @@
                         </tbody>
                     </table>
                     <div class="text-center">
-                        <at-pagination at-list="disruptions" at-config="config"></at-pagination>
+                        <at-pagination at-list="filtered.disruptions" at-config="config"></at-pagination>
                     </div>
                 </div>
-                <div ng-if="disruptions.length === 0">
+                <div ng-if="filtered.disruptions.length === 0">
                     <p class="text-center">Aucune anomalie</p>
                 </div>
             </div>
             <div class="tile show-for-small-only">
                 <h3>Anomalies : </h3>
                 <p class="text-center"> Mise à jour [[[displayAsDate(data.info.updated)]]]</p>
-                <div ng-if="disruptions.length > 0">
+                <div ng-if="filtered.disruptions.length > 0">
                     <div class="center">
                         <div class="center">
-                            <pagination previous-text="<" next-text=">" total-items="disruptions.length" max-size="3" rotate="false" items-per-page="pagin.itemsPerPage" page="pagin.cPage"></pagination>
+                            <pagination previous-text="<" next-text=">" total-items="filtered.disruptions.length" max-size="3" rotate="false" items-per-page="pagin.itemsPerPage" page="pagin.cPage"></pagination>
                         </div>
-                        <div class="item row align-middle" ng-repeat="item in disruptions.slice((pagin.cPage-1) * pagin.itemsPerPage) | limitTo:pagin.itemsPerPage">
+                        <div class="item row align-middle" ng-repeat="item in filtered.disruptions.slice((pagin.cPage-1) * pagin.itemsPerPage) | limitTo:pagin.itemsPerPage">
                             <div class="left-part columns small-4">
                                 <p class="train-number text-center">
                                     <strong>[[[item.object_name]]]</strong>
@@ -103,13 +103,13 @@
                         </div>
                     </div>
                 </div>
-                <div ng-if="disruptions.length === 0">
+                <div ng-if="filtered.disruptions.length === 0">
                     <p class="text-center">Aucune anomalie</p>
                 </div>
             </div>
             <div class="tile">
                 <h3>Résumé de la journée : </h3>
-                <table class="table table-striped" at-table at-list="data.grouped_by_text">
+                <table class="table table-striped" at-table at-list="filtered.grouped_by_text">
                     <thead></thead>
                     <tbody>
                     <tr>
