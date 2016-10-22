@@ -31,11 +31,11 @@ app.controller("basicExampleCtrl", function($scope, $filter, $http) {
                 }
             ];
 
-    $scope.query = {status: "", object_name: ""};
+    $scope.query = {status: "", object_name: "", text: ""};
 
 
     $scope.updateList = function(){
-        $scope.disruptions = $filter("filter")($scope.data.disruptions, {status: $scope.query.status, object_name: $scope.query.object_name});
+        $scope.disruptions = $filter("filter")($scope.data.disruptions, $scope.query);
     };
 
     $scope.updateList();

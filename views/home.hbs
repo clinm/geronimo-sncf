@@ -20,11 +20,20 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="small-3 medium-4 columns">
-                        <label for="middle-label" class="text-right middle">N° train</label>
+                    <div class="medium-12 columns">
+                        <label for="query_text">N° train
+                            <input id="query_text" type="text" placeholder="Ex: 837593" ng-model="query.object_name" ng-change="updateList()">
+                        </label>
                     </div>
-                    <div class="small-9 medium-8 columns">
-                        <input type="text" placeholder="Ex: 837593" ng-model="query.object_name" ng-change="updateList()">
+                </div>
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <label for="query_text">Raison
+                            <select name="text" id="query_text" ng-model="query.text" ng-change="updateList()">
+                                <option selected value="">Tous ([[[data.disruptions.length]]])</option>
+                                <option ng-repeat="reason in data.grouped_by_text" value="[[[reason.value]]]" ng-value="reason.value">[[[reason.value]]] ([[[reason.count]]])</option>
+                            </select>
+                        </label>
                     </div>
                 </div>
             </div>
