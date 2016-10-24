@@ -58,9 +58,9 @@
                             <td at-implicit at-sortable at-title="Etat" at-attribute="status" at-initial-sorting="asc"></td>
                             <td at-implicit at-sortable at-title="N° train" at-attribute="object_name"></td>
                             <td at-implicit at-sortable at-title="Raison" at-attribute="text" width="250px"></td>
-                            <td at-implicit at-sortable at-title="Début">[[[displayAsDate(item.application_period.begin)]]]</td>
-                            <td at-implicit at-sortable at-title="Fin">[[[displayAsDate(item.application_period.end)]]]</td>
-                            <td at-implicit at-sortable at-title="Mise à jour">[[[displayAsDate(item.application_period.updated_at)]]]</td>
+                            <td at-sortable at-title="Début" at-attribute="application_period.begin">[[[displayAsDate(item.application_period.begin)]]]<br></td>
+                            <td at-sortable at-title="Fin"  at-attribute="application_period.end">[[[displayAsDate(item.application_period.end)]]]</td>
+                            <td at-sortable at-title="Mise à jour"  at-attribute="application_period.updated_at">[[[displayAsDate(item.application_period.updated_at)]]]</td>
                         </tr>
                         </tbody>
                     </table>
@@ -109,15 +109,20 @@
             </div>
             <div class="tile">
                 <h3>Résumé de la journée : </h3>
-                <table class="table table-striped" at-table at-list="filtered.grouped_by_text">
-                    <thead></thead>
-                    <tbody>
-                    <tr>
-                        <td at-implicit at-sortable at-title="Raison" at-attribute="value" at-initial-sorting="asc"></td>
-                        <td at-implicit at-sortable at-title="Nombre" at-attribute="count" at-initial-sorting="asc"></td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div ng-if="filtered.grouped_by_text.length > 0">
+                    <table class="table table-striped" at-table at-list="filtered.grouped_by_text">
+                        <thead></thead>
+                        <tbody>
+                        <tr>
+                            <td at-implicit at-sortable at-title="Raison" at-attribute="value" ></td>
+                            <td at-implicit at-sortable at-title="Nombre" at-attribute="count" at-initial-sorting="desc"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-if="filtered.grouped_by_text.length === 0">
+                    <p class="text-center">Aucune anomalie</p>
+                </div>
             </div>
         </div>
     </div>
