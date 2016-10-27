@@ -37,6 +37,12 @@ module.exports = (function() {
         };
     };
 
+    var runDelay = function(key, time) {
+        setTimeout(function() {
+            run(key);
+        }, time);
+    };
+
     /**
      * Updates data and info related to the given job and add
      * a new task in the queue using setTimeout
@@ -49,9 +55,7 @@ module.exports = (function() {
         job.value = data;
         job.info.updated = new Date().getTime();
 
-        setTimeout(function() {
-            run(key);
-        }, job.interval);
+        runDelay(key, job.interval);
     };
 
     /**
@@ -70,6 +74,8 @@ module.exports = (function() {
 
         job.jobFunc().then(function(data) {
             handleData(key, data);
+        }).catch(function() {
+            runDelay(key, job.interval);
         });
     };
 

@@ -264,6 +264,32 @@ describe("Adding Jobs", function() {
             var started = jobs.start("startStopStart");
             expect(started).to.be.true;
         });
+
+        it("should restart job when reject is called", function(done) {
+            var n = 0;
+            jobs.add("startRejectStart", function() {
+                return new Promise(function(resolve, reject) {
+                    setTimeout(function() {
+                        if (n === 1) {
+                            n++;
+                            reject();
+                        } else if (n > 1){
+                            jobs.stop("startRejectStart");
+                            done();
+                        }
+
+                        n++;
+
+                        resolve(n);
+                    }, 0);
+                });
+
+
+            }, 10);
+
+            var started = jobs.start("startRejectStart");
+            expect(started).to.be.true;
+        });
     });
 
 });
