@@ -11,7 +11,7 @@ var job_conf = {
     }
 };
 
-var async_task = function(fulfill) {
+var async_task = function(fulfill, reject) {
     fetch('https://a9855a18-1753-4acb-a28a-84ef88a85162@api.sncf.com/v1/coverage/sncf/traffic_reports/')
     .then(function(res) {
         return res.json();
@@ -25,7 +25,11 @@ var async_task = function(fulfill) {
             };
 
             fulfill(data);
+        } else {
+            reject();
         }
+    }).catch(function() {
+        reject();
     });
 };
 
