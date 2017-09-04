@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "main": "server/server.js",
   "scripts": {
-    "prestart": "mkdir -p ./client/css; ./node_modules/clean-css/bin/cleancss websrc/main.css -o ./client/css/main-min.css",
+    "prestart": "./script/prestart.sh",
     "start": "node .",
-    "pretest": "eslint .",
+    "test": "./node_modules/.bin/mocha ./test --recursive --reporter spec",
     "posttest": "nsp check"
   },
   "dependencies": {
+    "angular": "^1.5.8",
+    "angular-chart.js": "^1.0.3",
+    "angular-mm-foundation": "^0.7.0-SNAPSHOT",
+    "chart.js": "^2.3.0",
     "clean-css": "^3.4.20",
     "compression": "^1.0.3",
     "cors": "^2.5.2",
@@ -18,12 +22,18 @@
     "loopback-boot": "^2.6.5",
     "loopback-component-explorer": "^2.4.0",
     "loopback-datasource-juggler": "^2.39.0",
+    "node-fetch": "^1.6.3",
     "serve-favicon": "^2.0.1",
-    "strong-error-handler": "^1.0.1"
+    "strong-error-handler": "^1.0.1",
+    "uglify-js": "^2.7.3",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
-    "eslint": "^2.5.3",
-    "nsp": "^2.1.0"
+    "chai": "^3.5.0",
+    "chai-spies": "^0.7.1",
+    "mocha": "^3.1.0",
+    "nsp": "^2.1.0",
+    "sinon": "^1.17.6"
   },
   "repository": {
     "type": "",
@@ -31,5 +41,5 @@
   },
   "license": "UNLICENSED",
   "description": "geronimo-sncf",
-  "browserify-css": "./config/browserify-css.js"
+  "browserify-css": "./script/browserify-css.js"
 }

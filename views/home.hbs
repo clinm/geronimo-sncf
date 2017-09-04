@@ -1,44 +1,128 @@
-<div class="content">
+<div class="content" ng-app="app" ng-controller="basicExampleCtrl">
+    <div class="row">
+        <div class="medium-12 columns">
+            <div class="callout secondary">
+                <h5>Informations</h5>
+                <p class="text-justify">Cette page ainsi que la majorité du site utilisent les données disponibles gratuitement <a target="_blank" href="https://data.sncf.com/">à cette page.</a><br>
+                Concernant les informations sur les trains annulés, veuillez vous référer <a target="_blank" href="http://www.sncf.com/fr/horaires-info-trafic"> aux horaires info trafic en temps réel fournis par la SNCF.</a>
+                pour plus d'information</p>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="medium-3 columns">
             <div class="tile">
-                <h3>Options</h3>
-                <ul class="menu vertical">
-                    <li><a href="#">Option 1</a></li>
-                    <li><a href="#">Option 2</a></li>
-                    <li><a href="#">Option 3</a></li>
-                    <li><a href="#">Option 4</a></li>
-                </ul>
+                <h3>Filtres : </h3>
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <label>Etat</label>
+                        <div class="columns medium-6 small-6" ng-repeat="(id, s) in status">
+                            <input id="status[[[id]]]" type="radio" ng-model="query.status" ng-value="s.value" ng-change="updateList()">
+                            <label for="status[[[id]]]">[[[s.name]]]</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <label for="query_text">N° train
+                            <input id="query_text" type="text" placeholder="Ex: 837593" ng-model="query.object_name" ng-change="updateList()">
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <label for="query_text">Raison
+                            <select name="text" id="query_text" ng-model="query.text" ng-change="updateList()">
+                                <option selected value="">Tous ([[[filtered.count]]])</option>
+                                <option ng-repeat="reason in filtered.grouped_by_text" value="[[[reason.value]]]" ng-value="reason.value">[[[reason.value]]] ([[[reason.count]]])</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
+        <script id="template/pagination/pagination.html" type="text/ng-template">
+            <ul class="pagination">
+                <li ng-repeat="page in pages" ng-class="{arrow: $first || $last, current: page.active, unavailable: page.disabled}"><a ng-click="selectPage(page.number)">[[[page.text]]]</a></li>
+            </ul>
+        </script>
         <div class="medium-9 columns">
+            <div class="tile hide-for-small-only">
+                <h3>Anomalies : </h3>
+                <p class="text-center"> Mise à jour [[[displayAsDate(data.info.updated)]]]</p>
+                <div ng-if="filtered.disruptions.length > 0">
+                    <table class="table table-striped" at-table  at-paginated at-list="filtered.disruptions" at-config="config">
+                        <thead></thead>
+                        <tbody>
+                        <tr>
+                            <td at-implicit at-sortable at-title="Etat" at-attribute="status" at-initial-sorting="asc"></td>
+                            <td at-implicit at-sortable at-title="N° train" at-attribute="object_name"></td>
+                            <td at-implicit at-sortable at-title="Raison" at-attribute="text" width="250px"></td>
+                            <td at-sortable at-title="Début" at-attribute="application_period.begin">[[[displayAsDate(item.application_period.begin)]]]<br></td>
+                            <td at-sortable at-title="Fin"  at-attribute="application_period.end">[[[displayAsDate(item.application_period.end)]]]</td>
+                            <td at-sortable at-title="Mise à jour"  at-attribute="application_period.updated_at">[[[displayAsDate(item.application_period.updated_at)]]]</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <at-pagination at-list="filtered.disruptions" at-config="config"></at-pagination>
+                    </div>
+                </div>
+                <div ng-if="filtered.disruptions.length === 0">
+                    <p class="text-center">Aucune anomalie</p>
+                </div>
+            </div>
+            <div class="tile show-for-small-only">
+                <h3>Anomalies : </h3>
+                <p class="text-center"> Mise à jour [[[displayAsDate(data.info.updated)]]]</p>
+                <div ng-if="filtered.disruptions.length > 0">
+                    <div class="center">
+                        <div class="center">
+                            <pagination previous-text="<" next-text=">" total-items="filtered.disruptions.length" max-size="3" rotate="false" items-per-page="pagin.itemsPerPage" page="pagin.cPage"></pagination>
+                        </div>
+                        <div class="item row align-middle" ng-repeat="item in filtered.disruptions.slice((pagin.cPage-1) * pagin.itemsPerPage) | limitTo:pagin.itemsPerPage">
+                            <div class="left-part columns small-4">
+                                <p class="train-number text-center">
+                                    <strong>[[[item.object_name]]]</strong>
+                                </p>
+                                <p class="train-status text-center">
+                                    [[[item.status]]]
+                                </p>
+                            </div>
+                            <div class="right-part columns small-8">
+                                <p class="train-hours train-hours-begin">
+                                    <span class="hours-title">Départ : </span>[[[displayAsDate(item.application_period.begin)]]]
+                                </p>
+                                <p class="train-hours train-hours-end">
+                                    <span class="hours-title">Arrivé  : </span>[[[displayAsDate(item.application_period.end)]]]
+                                </p>
+                                <p class="train-reason">
+                                    [[[item.text]]]
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="filtered.disruptions.length === 0">
+                    <p class="text-center">Aucune anomalie</p>
+                </div>
+            </div>
             <div class="tile">
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Table Header</th>
-                        <th>Table Header</th>
-                        <th width="150">Table Header</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Content Goes Here</td>
-                        <td>This is longer content Donec id elit non mi porta gravida at eget metus.</td>
-                        <td>Content Goes Here</td>
-                    </tr>
-                    <tr>
-                        <td>Content Goes Here</td>
-                        <td>This is longer Content Goes Here Donec id elit non mi porta gravida at eget metus.</td>
-                        <td>Content Goes Here</td>
-                    </tr>
-                    <tr>
-                        <td>Content Goes Here</td>
-                        <td>This is longer Content Goes Here Donec id elit non mi porta gravida at eget metus.</td>
-                        <td>Content Goes Here</td>
-                    </tr>
-                    </tbody>
-                </table>
+                <h3>Résumé de la journée : </h3>
+                <div ng-if="filtered.grouped_by_text.length > 0">
+                    <table class="table table-striped" at-table at-list="filtered.grouped_by_text">
+                        <thead></thead>
+                        <tbody>
+                        <tr>
+                            <td at-implicit at-sortable at-title="Raison" at-attribute="value" ></td>
+                            <td at-implicit at-sortable at-title="Nombre" at-attribute="count" at-initial-sorting="desc"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-if="filtered.grouped_by_text.length === 0">
+                    <p class="text-center">Aucune anomalie</p>
+                </div>
             </div>
         </div>
     </div>

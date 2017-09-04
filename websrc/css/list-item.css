@@ -1,0 +1,28 @@
+.item {
+    padding: 15px 0;
+}
+
+    .item p {
+        margin: 0;
+    }
+
+    .item .train-hours {
+        font-size: 12px;
+    }
+
+    .item .hours-title {
+        display: inline-block;
+        min-width: 50px;
+    }
+
+    .item .train-reason {
+        font-size: 14px;
+    }
+
+    .item .train-number {
+        font-size: 18px;
+    }
+
+    .item .train-status {
+        font-size: 14px;
+    }
